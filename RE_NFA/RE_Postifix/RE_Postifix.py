@@ -1,5 +1,5 @@
 from collections import deque
-class RE_NFA():
+class RE_Postifix():
     def __init__(self, regex):
         self.regex = regex
         self.operators = ['*', '+', '?', '.', '|']
@@ -106,7 +106,7 @@ loop for every character in regex:
 """
 
 regex = "https?://(www.)?[a-bA-B0-2_].(com|org|net)"
-re_nfa = RE_NFA(regex)
+re_nfa = RE_Postifix(regex)
 regex = re_nfa.handling_sqaure_brackets()
 preprocessed_regex = re_nfa.regex_preprocessing()
 print(preprocessed_regex)
