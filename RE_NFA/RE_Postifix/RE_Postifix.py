@@ -5,7 +5,7 @@ class RE_NFA():
         self.operators = ['*', '+', '?', '.', '|']
         self.alpha_numeric = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x' ,'y', 'z',
                           'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z',
-                          '0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
+                          '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '@' , '#' , '$' , '%' , '_', '!', ':' , '/']
         self.postifix = ""
         self.stack = deque()
         self.precedence = {
@@ -104,16 +104,18 @@ loop for every character in regex:
     - and then insert to infix each character between first and last and | after each character
     - check also if - is between to valid character if not return false
 """
-# [0-9][a-zA-Z0-9] 
-regex = "BAM[a-dA-Ds7-9](ABC)[x-z]?ABC(a)[a-b](FA)(BC)?"
-# ff = "(asjnd[0-9])|(h4d2*|33+as449d|[2-9a-z(az)*])"
-# ss = "BAM[a-dA-Ds7-9](ABC)[x-z]?ABC(a)[a-b](FA)(BC)?"
-# regex = "[a-c]"
+
+regex = "https?://(www.)?[a-bA-B0-2_].(com|org|net)"
 re_nfa = RE_NFA(regex)
 regex = re_nfa.handling_sqaure_brackets()
 preprocessed_regex = re_nfa.regex_preprocessing()
 print(preprocessed_regex)
 exist, postifix = re_nfa.regex_to_postifix()
 print(postifix,exist)
+#"(asjnd[0-9])|(h4d2*|33+as449d|[2-9a-z(az)*])"
+#"BAM[a-dA-Ds7-9](ABC)[x-z]?ABC(a)[a-b](FA)(BC)?"
+# [0-9][a-zA-Z0-9] 
+
+
 
 
