@@ -105,7 +105,7 @@ loop for every character in regex:
     - check also if - is between to valid character if not return false
 """
 
-regex = "https?://(www.)?[a-bA-B0-2_].(com|org|net)"
+regex = "((00)|1)*1(0|1)"
 re_nfa = RE_Postifix(regex)
 regex = re_nfa.handling_sqaure_brackets()
 preprocessed_regex = re_nfa.regex_preprocessing()
