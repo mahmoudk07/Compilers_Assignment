@@ -112,9 +112,6 @@ preprocessed_regex = re_nfa.regex_preprocessing()
 print(preprocessed_regex)
 exist, postifix = re_nfa.regex_to_postifix()
 print(postifix,exist)
-#"(asjnd[0-9])|(h4d2*|33+as449d|[2-9a-z(az)*])"
-#"BAM[a-dA-Ds7-9](ABC)[x-z]?ABC(a)[a-b](FA)(BC)?"
-# [0-9][a-zA-Z0-9] 
 
 
 
