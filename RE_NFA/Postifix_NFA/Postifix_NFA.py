@@ -129,7 +129,7 @@ class Postifix_NFA:
         elif self.postifix[i] == '.':
           nfa_1 = self.stack.pop()
           nfa_2 = self.stack.pop()
-          self.concat_states(self , nfa_1 , nfa_2)
+          self.concat_states(self , nfa_2, nfa_1)
           i += 1
           continue
         elif self.postifix[i] == '|':
@@ -153,7 +153,16 @@ class Postifix_NFA:
           "isTerminatingState": isTerminatingState,
         }
         for transition in state.outgoing_arcs:
-          result[state.name].update({**result[state.name] , transition.arc: transition.destination.name})
+          # result[state.name].update({**result[state.name] , transition.arc: transition.destination.name})
+          # result[state.name].append({transition.arc : transition.destination.name})
+          if state.name in result and transition.arc in result[state.name]:
+                # If the transition already exists, append to it
+            if isinstance(result[state.name][transition.arc], list):
+              result[state.name][transition.arc].append(transition.destination.name)
+            else:
+              result[state.name][transition.arc] = [result[state.name][transition.arc], transition.destination.name]
+          else:
+            result[state.name][transition.arc] = [transition.destination.name]  # Store as a list
       result_in_json = json.dumps(result , indent = 4 , ensure_ascii = False)
       with open("RE_NFA/output.json" , "w") as outputfile:
          outputfile.write(result_in_json)
@@ -161,8 +170,8 @@ class Postifix_NFA:
          
           
     
-postifix_nfa = Postifix_NFA("1-91-90-9.|10-9.0-9.|20-4.0-9.|25.0-5.|")
+postifix_nfa = Postifix_NFA("AB|B.")
 result = postifix_nfa.postfix_to_nfa()
 result = postifix_nfa.write_output(result)
 print(result)
-# postifix_nfa.vizualize_NFA(result)
+postifix_nfa.visualize_nfa(result)
