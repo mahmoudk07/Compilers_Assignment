@@ -71,13 +71,14 @@ class RE_Postifix():
                 next_character = self.regex[i + 1]
                 if previous_character not in self.alpha_numeric and next_character not in self.alpha_numeric:
                     return False , ""
-                range_characters = []
-                for character in self.alpha_numeric:
-                    if ord(character) > ord(previous_character) and ord(character) < ord(next_character):
-                        range_characters.append('|')
-                        range_characters.append(character)
-                range_characters.append('|')    
-                self.regex = self.regex[:i + 1] + "".join(range_characters) + self.regex[i + 1:]
+                self.postifix += self.regex[i]
+                # range_characters = []
+                # for character in self.alpha_numeric:
+                #     if ord(character) > ord(previous_character) and ord(character) < ord(next_character):
+                #         range_characters.append('|')
+                #         range_characters.append(character)
+                # range_characters.append('|')    
+                # self.regex = self.regex[:i + 1] + "".join(range_characters) + self.regex[i + 1:]
             i += 1
 
         while len(self.stack) > 0:
@@ -105,7 +106,7 @@ loop for every character in regex:
     - check also if - is between to valid character if not return false
 """
 
-regex = "((00)|1)*1(0|1)"
+regex = "[1-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5]"
 re_nfa = RE_Postifix(regex)
 regex = re_nfa.handling_sqaure_brackets()
 preprocessed_regex = re_nfa.regex_preprocessing()

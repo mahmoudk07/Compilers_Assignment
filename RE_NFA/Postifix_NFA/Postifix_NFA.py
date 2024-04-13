@@ -106,24 +106,33 @@ class Postifix_NFA:
       gra.render('NFA', view = True)
       return gra.source
     def postfix_to_nfa(self):
-      for character in self.postifix:
-        if character in self.alpha_numeric:
-          self.construct_nfa(self, character)
-        elif character == '*':
+      i = 0
+      range_string : str = ""
+      while i < len(self.postifix):
+        if self.postifix[i] in self.alpha_numeric:
+          if self.postifix[i + 1] == '-':
+            range_string += '[' + self.postifix[i] + self.postifix[i + 1] + self.postifix[i + 2] + ']'
+            self.construct_nfa(self , range_string)
+            range_string = ""
+            i += 2
+          else:
+            self.construct_nfa(self, self.postifix[i])
+        elif self.postifix[i] == '*':
           nfa_1 = self.stack.pop()
           self.zero_or_more_state(self , nfa_1)
-        elif character == '+':
+        elif self.postifix[i] == '+':
           nfa_1 = self.stack.pop()
           self.one_or_more_state(self, nfa_1)
-        elif character == '?':
+        elif self.postifix[i] == '?':
           nfa_1 = self.stack.pop()
           self.zero_or_one_state(self , nfa_1)
-        elif character == '.':
+        elif self.postifix[i] == '.':
           nfa_1 = self.stack.pop()
           nfa_2 = self.stack.pop()
           self.concat_states(self , nfa_1 , nfa_2)
+          i += 1
           continue
-        elif character == '|':
+        elif self.postifix[i] == '|':
           nfa_1 = self.stack.pop()
           nfa_2 = self.stack.pop()
           self.oring_states(self , nfa_1 , nfa_2)
@@ -131,6 +140,7 @@ class Postifix_NFA:
           print("Please enter a correct character!")
           exit(1)
         self.id += 2
+        i += 1
       result = self.stack.pop()
       return result
     @staticmethod
@@ -151,7 +161,7 @@ class Postifix_NFA:
          
           
     
-postifix_nfa = Postifix_NFA("AB|")
+postifix_nfa = Postifix_NFA("1-91-90-9.|10-9.0-9.|20-4.0-9.|25.0-5.|")
 result = postifix_nfa.postfix_to_nfa()
 result = postifix_nfa.write_output(result)
 print(result)
