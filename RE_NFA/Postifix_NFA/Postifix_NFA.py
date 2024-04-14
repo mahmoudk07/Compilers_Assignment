@@ -170,7 +170,7 @@ class Postifix_NFA:
          
           
     
-postifix_nfa = Postifix_NFA("1-91-90-9#|10-9#0-9#|20-4#0-9#|25#0-5#|")
+postifix_nfa = Postifix_NFA("ab#bc|*#d+#")
 result = postifix_nfa.postfix_to_nfa()
 outputfile = postifix_nfa.write_output(result)
 print(outputfile)
