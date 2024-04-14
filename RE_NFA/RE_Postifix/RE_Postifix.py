@@ -2,17 +2,17 @@ from collections import deque
 class RE_Postifix():
     def __init__(self, regex):
         self.regex = regex
-        self.operators = ['*', '+', '?', '.', '|']
+        self.operators = ['*', '+', '?', '#', '|']
         self.alpha_numeric = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x' ,'y', 'z',
                           'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z',
-                          '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '@' , '#' , '$' , '%' , '_', '!', ':' , '/']
+                          '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '@' , '.' , '$' , '%' , '_', '!', ':' , '/']
         self.postifix = ""
         self.stack = deque()
         self.precedence = {
             '*' : 5,
             '+' : 4,
             '?' : 3,
-            '.' : 2,
+            '#' : 2,
             '|' : 1
         }
     def handling_sqaure_brackets(self) -> str:
@@ -39,9 +39,9 @@ class RE_Postifix():
         i = 0
         while i < len(self.regex):
             if i + 1 < len(self.regex) and self.regex[i] in ['*' , '+' , '?' , ')' , ']'] and self.regex[i + 1] not in ['*' , '+' , '?' , ')' , ']' , '|']:
-                self.regex = self.regex[:i + 1] + '.' + self.regex[i + 1:]
+                self.regex = self.regex[:i + 1] + '#' + self.regex[i + 1:]
             elif i + 1 < len(self.regex) and self.regex[i] in self.alpha_numeric and (self.regex[i + 1] in ['(' , '['] or self.regex[i + 1] in self.alpha_numeric):
-                self.regex = self.regex[:i + 1] + '.' + self.regex[i + 1:]
+                self.regex = self.regex[:i + 1] + '#' + self.regex[i + 1:]
             i += 1
         return self.regex
     def regex_to_postifix(self):
@@ -106,7 +106,7 @@ loop for every character in regex:
     - check also if - is between to valid character if not return false
 """
 
-regex = "[1-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5]"
+regex = "ab(b|c)*d+"
 re_nfa = RE_Postifix(regex)
 regex = re_nfa.handling_sqaure_brackets()
 preprocessed_regex = re_nfa.regex_preprocessing()
