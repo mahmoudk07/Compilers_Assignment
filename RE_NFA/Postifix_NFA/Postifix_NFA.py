@@ -6,7 +6,7 @@ class Postifix_NFA:
       self.postifix = postifix
       self.alpha_numeric = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x' ,'y', 'z',
                 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z',
-                '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '@' , '#' , '$' , '%' , '_', '!', ':' , '/']
+                '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '@' , '.' , '$' , '%' , '_', '!', ':' , '/']
       self.stack = []
       self.id = 1
     @staticmethod
@@ -95,7 +95,7 @@ class Postifix_NFA:
           if(stat.name == nfa.initial_state.name):
             gra.node("", _attributes={'shape' : 'none'})
             gra.edge("", stat.name)
-          if(stat.name == nfa.accepting_states.name):
+          if(stat.name == nfa.accepting_state.name):
             gra.node(stat.name, _attributes={'peripheries' : '2'})
           else:
             gra.node(stat.name)
@@ -126,7 +126,7 @@ class Postifix_NFA:
         elif self.postifix[i] == '?':
           nfa_1 = self.stack.pop()
           self.zero_or_one_state(self , nfa_1)
-        elif self.postifix[i] == '.':
+        elif self.postifix[i] == '#':
           nfa_1 = self.stack.pop()
           nfa_2 = self.stack.pop()
           self.concat_states(self , nfa_2, nfa_1)
@@ -170,8 +170,8 @@ class Postifix_NFA:
          
           
     
-postifix_nfa = Postifix_NFA("AB|B.")
+postifix_nfa = Postifix_NFA("1-91-90-9#|10-9#0-9#|20-4#0-9#|25#0-5#|")
 result = postifix_nfa.postfix_to_nfa()
-result = postifix_nfa.write_output(result)
-print(result)
-postifix_nfa.visualize_nfa(result)
+outputfile = postifix_nfa.write_output(result)
+print(outputfile)
+# postifix_nfa.visualize_nfa(result)
