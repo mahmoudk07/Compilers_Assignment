@@ -1,4 +1,4 @@
-# from graphviz import Digraph
+from graphviz import Digraph
 import json
 from utilities.classes import Edge , State , NFA 
 class Postifix_NFA:
@@ -177,4 +177,4 @@ postifix_nfa = Postifix_NFA("[0-9A-B]AB|#")
 result = postifix_nfa.postfix_to_nfa()
 outputfile = postifix_nfa.write_output(result)
 print(outputfile)
-# postifix_nfa.visualize_nfa(result)
+postifix_nfa.visualize_nfa(result)
