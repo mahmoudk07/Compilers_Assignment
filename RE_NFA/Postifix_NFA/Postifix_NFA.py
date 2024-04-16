@@ -1,4 +1,4 @@
-from graphviz import Digraph
+# from graphviz import Digraph
 import json
 from utilities.classes import Edge , State , NFA 
 class Postifix_NFA:
@@ -110,13 +110,16 @@ class Postifix_NFA:
       range_string : str = ""
       while i < len(self.postifix):
         if self.postifix[i] in self.alpha_numeric:
-          if self.postifix[i + 1] == '-':
-            range_string += '[' + self.postifix[i] + self.postifix[i + 1] + self.postifix[i + 2] + ']'
-            self.construct_nfa(self , range_string)
-            range_string = ""
-            i += 2
-          else:
-            self.construct_nfa(self, self.postifix[i])
+          self.construct_nfa(self, self.postifix[i])
+        elif self.postifix[i] == '[':
+          j = i
+          while self.postifix[j] != ']':
+            range_string += self.postifix[j]
+            j += 1
+          range_string += ']'
+          self.construct_nfa(self , range_string)
+          range_string = ""
+          i = j
         elif self.postifix[i] == '*':
           nfa_1 = self.stack.pop()
           self.zero_or_more_state(self , nfa_1)
@@ -170,7 +173,7 @@ class Postifix_NFA:
          
           
     
-postifix_nfa = Postifix_NFA("ab#bc|*#d+#")
+postifix_nfa = Postifix_NFA("[0-9A-B]AB|#")
 result = postifix_nfa.postfix_to_nfa()
 outputfile = postifix_nfa.write_output(result)
 print(outputfile)

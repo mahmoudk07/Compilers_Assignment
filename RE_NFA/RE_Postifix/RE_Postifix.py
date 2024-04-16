@@ -51,21 +51,29 @@ class RE_Postifix():
             if self.regex[i] in self.alpha_numeric:
                 self.postifix += self.regex[i]
 
-            elif self.regex[i] == ')' or self.regex[i] == ']':
-                while len(self.stack) > 0 and self.stack[-1] not in ['(' , '[']:
+            elif self.regex[i] == ')':
+                while len(self.stack) > 0 and self.stack[-1] != '(':
                     self.postifix += self.stack.pop()
                 if not len(self.stack):
                     return False , ""
                 self.stack.pop()
 
-            elif self.regex[i] == '(' or self.regex[i] == '[':
+            elif self.regex[i] == '(':
                 self.stack.append(self.regex[i])
             
             elif self.regex[i] in self.operators:
                 while len(self.stack) > 0 and self.stack[-1] in self.precedence and self.precedence[self.regex[i]] <= self.precedence[self.stack[-1]]:
                     self.postifix += self.stack.pop()
                 self.stack.append(self.regex[i])
-
+            elif self.regex[i] == '[':
+                j = i
+                bracket_string = ""
+                while self.regex[j] != ']':
+                    if self.regex[j] != '#':
+                        bracket_string += self.regex[j]
+                    j += 1
+                self.postifix +=  bracket_string + ']'
+                i = j
             else:
                 previous_character = self.regex[i - 1]
                 next_character = self.regex[i + 1]
@@ -82,15 +90,10 @@ class RE_Postifix():
             i += 1
 
         while len(self.stack) > 0:
-            if self.stack[-1] in ['(' , '[']:
+            if self.stack[-1] == '(':
                 return False , ""
             self.postifix += self.stack.pop()
         return True , self.postifix
-    
-    def postifix_to_NFA(self):
-        pass
-    def nfa_visualizing(self):
-        pass
 
 """
 loop for every character in regex:
@@ -106,9 +109,9 @@ loop for every character in regex:
     - check also if - is between to valid character if not return false
 """
 
-regex = "ab(b|c)*d+"
+regex = "https?://(www.)?[a-zA-Z0-9_].(com|org|net)"
 re_nfa = RE_Postifix(regex)
-regex = re_nfa.handling_sqaure_brackets()
+# regex = re_nfa.handling_sqaure_brackets()
 preprocessed_regex = re_nfa.regex_preprocessing()
 print(preprocessed_regex)
 exist, postifix = re_nfa.regex_to_postifix()
