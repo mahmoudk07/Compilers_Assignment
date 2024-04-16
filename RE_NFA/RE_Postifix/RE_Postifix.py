@@ -68,10 +68,17 @@ class RE_Postifix():
             elif self.regex[i] == '[':
                 j = i
                 bracket_string = ""
-                while self.regex[j] != ']':
+                while j < len(self.regex) and self.regex[j] != ']':
+                    if self.regex[j] == '-':
+                        previous_character = self.regex[j - 1]
+                        next_character = self.regex[j + 1]
+                        if previous_character not in self.alpha_numeric or next_character not in self.alpha_numeric:
+                            return False , ""
                     if self.regex[j] != '#':
                         bracket_string += self.regex[j]
                     j += 1
+                if j == len(self.regex):
+                    return False , ""
                 self.postifix +=  bracket_string + ']'
                 i = j
             else:
@@ -80,13 +87,6 @@ class RE_Postifix():
                 if previous_character not in self.alpha_numeric and next_character not in self.alpha_numeric:
                     return False , ""
                 self.postifix += self.regex[i]
-                # range_characters = []
-                # for character in self.alpha_numeric:
-                #     if ord(character) > ord(previous_character) and ord(character) < ord(next_character):
-                #         range_characters.append('|')
-                #         range_characters.append(character)
-                # range_characters.append('|')    
-                # self.regex = self.regex[:i + 1] + "".join(range_characters) + self.regex[i + 1:]
             i += 1
 
         while len(self.stack) > 0:
@@ -109,7 +109,7 @@ loop for every character in regex:
     - check also if - is between to valid character if not return false
 """
 
-regex = "((a|b|c)+9|55?(zzz)*)"
+regex = "https?://(www.)?[a-zA-Z0-9_].(com|org|net)"
 re_nfa = RE_Postifix(regex)
 # regex = re_nfa.handling_sqaure_brackets()
 preprocessed_regex = re_nfa.regex_preprocessing()
