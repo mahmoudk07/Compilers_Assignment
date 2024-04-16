@@ -1,0 +1,16 @@
+digraph {
+	S2 [shape=circle]
+	S1 [shape=circle]
+	S0 [shape=circle]
+	S3 [shape=doublecircle]
+	S0 -> S1 [label=a]
+	S0 -> S2 [label=b]
+	S2 -> S1 [label=a]
+	S2 -> S3 [label=c]
+	S2 -> S2 [label=b]
+	S3 -> S3 [label=c]
+	S1 -> S1 [label=a]
+	S1 -> S2 [label=b]
+	"" [shape=none]
+	"" -> S0 [label=Start]
+}

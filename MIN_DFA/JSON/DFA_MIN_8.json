@@ -1,0 +1,33 @@
+{
+    "startingState": "Q1",
+    "Q0": {
+        "isTerminatingState": false,
+        "a,b,c": "Q0",
+        "9": "Q6"
+    },
+    "Q1": {
+        "isTerminatingState": false,
+        "5": "Q5",
+        "a,b,c": "Q0"
+    },
+    "Q2": {
+        "isTerminatingState": false,
+        "z": "Q3"
+    },
+    "Q3": {
+        "isTerminatingState": false,
+        "z": "Q4"
+    },
+    "Q4": {
+        "isTerminatingState": true,
+        "z": "Q2"
+    },
+    "Q5": {
+        "isTerminatingState": true,
+        "5": "Q4",
+        "z": "Q2"
+    },
+    "Q6": {
+        "isTerminatingState": true
+    }
+}

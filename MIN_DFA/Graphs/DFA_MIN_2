@@ -1,8 +1,8 @@
 digraph {
 	Q0 [shape=circle]
 	Q1 [shape=doublecircle]
-	Q0 -> Q1 [label="$,[A-Z],[a-z],_"]
-	Q1 -> Q1 [label="$,[0-9],[A-Z],[a-z],_"]
+	Q0 -> Q1 [label="[a-zA-Z_$]"]
+	Q1 -> Q1 [label="[a-zA-Z0-9_$]"]
 	"" [shape=none]
 	"" -> Q0 [label=start]
 }

@@ -1,0 +1,20 @@
+{
+    "startingState": "Q2",
+    "Q0": {
+        "isTerminatingState": false,
+        "b": "Q1"
+    },
+    "Q1": {
+        "isTerminatingState": false,
+        "b,c": "Q1",
+        "d": "Q3"
+    },
+    "Q2": {
+        "isTerminatingState": false,
+        "a": "Q0"
+    },
+    "Q3": {
+        "isTerminatingState": true,
+        "d": "Q3"
+    }
+}

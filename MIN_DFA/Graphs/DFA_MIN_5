@@ -1,0 +1,13 @@
+digraph {
+	Q0 [shape=circle]
+	Q1 [shape=doublecircle]
+	Q2 [shape=doublecircle]
+	Q3 [shape=doublecircle]
+	Q0 -> Q2 [label=0]
+	Q0 -> Q1 [label="[1-9A-F]"]
+	Q0 -> Q3 [label="[1-9a-f]"]
+	Q3 -> Q3 [label="[0-9a-f]"]
+	Q1 -> Q1 [label="[0-9A-F]"]
+	"" [shape=none]
+	"" -> Q0 [label=start]
+}

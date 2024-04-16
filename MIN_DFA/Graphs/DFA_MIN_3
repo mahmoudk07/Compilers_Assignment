@@ -1,0 +1,17 @@
+digraph {
+	Q0 [shape=circle]
+	Q1 [shape=circle]
+	Q2 [shape=circle]
+	Q3 [shape=doublecircle]
+	Q4 [shape=doublecircle]
+	Q0 -> Q2 [label=0]
+	Q0 -> Q1 [label=1]
+	Q1 -> Q4 [label=0]
+	Q1 -> Q3 [label=1]
+	Q3 -> Q4 [label=0]
+	Q3 -> Q3 [label=1]
+	Q4 -> Q0 [label=0]
+	Q2 -> Q0 [label=0]
+	"" [shape=none]
+	"" -> Q0 [label=start]
+}
